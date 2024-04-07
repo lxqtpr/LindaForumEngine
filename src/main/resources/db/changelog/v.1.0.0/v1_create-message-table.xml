@@ -1,0 +1,34 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="v1-2" author="lxqtpr">
+        <createTable tableName="message_entity">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text" type="text"/>
+            <column name="created" type="datetime"/>
+            <column name="topic_id" type="uuid"/>
+            <column name="author_id" type="uuid"/>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="message_entity" baseColumnNames="topic_id"
+                constraintName="message_topic_id"
+                referencedTableName="topic_entity" referencedColumnNames="id"
+                onUpdate="CASCADE"
+                onDelete="CASCADE"
+        />
+        <addForeignKeyConstraint
+                baseTableName="message_entity" baseColumnNames="author_id"
+                constraintName="message_author_id"
+                referencedTableName="user_entity" referencedColumnNames="id"
+                onUpdate="CASCADE"
+                onDelete="CASCADE"
+        />
+
+    </changeSet>
+
+
+</databaseChangeLog>

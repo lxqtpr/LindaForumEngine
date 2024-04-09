@@ -1,4 +1,11 @@
 services:
+  api:
+    container_name: 'LindaForumEngine'
+    build: ./
+    links:
+      - postgres
+    ports:
+      - "8080:8080"
   postgres:
     image: postgres
     restart: always
@@ -9,6 +16,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=lxqtpr2021
     volumes:
+      - ./src/main/resources/db/changelog/init.sql:/docker-entrypoint-initdb.d/init.sql
       - db-data:/postgres
   pgadmin:
     container_name: pgAdmin

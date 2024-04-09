@@ -50,8 +50,8 @@ public class JwtFilter extends OncePerRequestFilter {
         try {
             String accessToken = getTokenFromRequest(request);
             if (accessToken != null && jwtService.validateAccessToken(accessToken)) {
-                var userId = jwtService.getUserIdFromAccessClaims(accessToken);
-                var userDetails = customUserDetailsService.loadUserByUsername(userId);
+                var username = jwtService.getUsernameFromAccessClaims(accessToken);
+                var userDetails = customUserDetailsService.loadUserByUsername(username);
                 var authentication = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,

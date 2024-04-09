@@ -1,10 +1,10 @@
 server:
   servlet:
-    context-path: "/api"
+    context-path: "/api/v1"
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/LindaForumEngine
+    url: jdbc:postgresql://postgres:5432/lindaforumengine
     username: postgres
     password: lxqtpr2021
   liquibase:

@@ -12,19 +12,24 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
     private final UserEntity userEntity;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(userEntity.getRole());
     }
     public UUID getId(){ return userEntity.getId();}
+
     @Override
     public String getPassword() {
         return userEntity.getPassword();
     }
+    public String getRole(){
+        return userEntity.getRole().getAuthority();
+    }
 
     @Override
     public String getUsername() {
-        return userEntity.getEmail();
+        return userEntity.getUsername();
     }
 
     @Override

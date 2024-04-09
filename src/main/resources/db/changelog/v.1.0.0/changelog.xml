@@ -7,5 +7,5 @@
     <include file="v1_create-user-table.xml" relativeToChangelogFile="true"/>
     <include file="v1_create-topic-table.xml" relativeToChangelogFile="true"/>
     <include file="v1_create-message-table.xml" relativeToChangelogFile="true"/>
-
+    <include file="v1_data-seed.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

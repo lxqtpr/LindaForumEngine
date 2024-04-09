@@ -1,15 +1,20 @@
 package dev.lxqtpr.linda.lindaforumengine.domain.topic.dto;
 
-import dev.lxqtpr.linda.lindaforumengine.domain.message.dto.CreateMessageDto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-@Data
-public class CreateTopicDto {
-    @NotEmpty(message = "Topic name is mandatory")
-    private String topicName;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
-    @NotNull
-    private CreateMessageDto messageDto;
+@Data
+public class UpdateTopicDto {
+
+    @NotNull(message = "Id is mandatory")
+    private UUID id;
+
+    @NotEmpty(message = "Topic name is mandatory")
+    private String name;
+
+    private LocalDateTime created;
 }

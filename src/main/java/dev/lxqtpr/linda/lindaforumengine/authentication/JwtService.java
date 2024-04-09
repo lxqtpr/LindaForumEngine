@@ -35,7 +35,7 @@ public class JwtService {
                         .toInstant();
         final Date accessExpiration = Date.from(accessExpirationInstant);
         return Jwts.builder()
-                .setSubject(user.getId().toString())
+                .setSubject(user.getUsername())
                 .setExpiration(accessExpiration)
                 .signWith(jwtAccessSecret)
                 .claim("roles", user.getRole())
@@ -50,7 +50,7 @@ public class JwtService {
                         .toInstant();
         final Date refreshExpiration = Date.from(refreshExpirationInstant);
         return Jwts.builder()
-                .setSubject(user.getId().toString())
+                .setSubject(user.getUsername())
                 .setExpiration(refreshExpiration)
                 .signWith(jwtRefreshSecret)
                 .compact();
@@ -78,11 +78,11 @@ public class JwtService {
         }
     }
 
-    public String getUserIdFromAccessClaims(String token) {
+    public String getUsernameFromAccessClaims(String token) {
         return getClaims(token, jwtAccessSecret).getSubject();
     }
 
-    public String getUserIdFromRefreshClaims(String token) {
+    public String getUsernameFromRefreshClaims(String token) {
         return getClaims(token, jwtRefreshSecret).getSubject();
     }
 

@@ -2,6 +2,7 @@ package dev.lxqtpr.linda.lindaforumengine.core.exceptions;
 
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -39,7 +40,7 @@ public class ControllerAdvice{
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ValidationErrorResponse onConstraintValidationException(
             ConstraintViolationException e
     ) {
@@ -51,18 +52,18 @@ public class ControllerAdvice{
                         )
                 )
                 .collect(Collectors.toList());
-        return new ValidationErrorResponse(HttpStatus.BAD_REQUEST.value(), violations);
+        return new ValidationErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(), violations);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ValidationErrorResponse onMethodArgumentNotValidException(
             MethodArgumentNotValidException e
     ) {
         var violations = e.getBindingResult().getFieldErrors().stream()
                 .map(error -> new Violation(error.getField(), error.getDefaultMessage()))
                 .collect(Collectors.toList());
-        return new ValidationErrorResponse(HttpStatus.BAD_REQUEST.value(), violations);
+        return new ValidationErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(), violations);
     }
 
     @ExceptionHandler({AccessDeniedException.class})

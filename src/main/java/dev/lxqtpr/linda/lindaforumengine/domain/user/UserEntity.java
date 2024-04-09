@@ -22,8 +22,6 @@ public class UserEntity {
 
     private String password;
 
-    private String email;
-
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MessageEntity> messages;
 

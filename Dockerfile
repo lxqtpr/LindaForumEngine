@@ -1,11 +1,9 @@
-FROM gradle:8-alpine AS build
-COPY src /home/app/src
-COPY build.gradle settings.gradle /home/app/
-WORKDIR /home/app
-RUN gradle clean build -x test --no-daemon
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /root
+COPY . .
+RUN ./gradlew clean build
 
-# Package stage
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-COPY --from=build /home/app/build/libs/*.jar app.jar
+COPY --from=builder /root/build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
